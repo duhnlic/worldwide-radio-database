@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const Station = require('../models/Station');
+const { auth } = require('./authController');
+
 // Index
-router.get('/', async (req, res) => {
+router.get('/', auth, async (req, res) => {
     let filters;
     if(Object.keys(req.query).length > 0){
         filters = {...req.query}

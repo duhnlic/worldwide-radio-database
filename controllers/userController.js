@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 const Station = require('../models/Station');
-const { jsonAuth, auth } = require('./authController');
+const { auth } = require('./authController');
 
 
 
@@ -38,13 +38,14 @@ router.get('/', auth, (req, res) => {
 })
 
 router.post('/addStation/:station/:username', auth, (req, res) =>{
-    const stationQuery = Station.findOne({ name: req.params.station })
+    const stationQuery = Station.findOne({ _id: req.params.station })
     stationQuery.exec(( err, station ) => {
         if(err){
             res.status(400).json({
                 msg: err.message
             })
         } else {
+            console.log(station)
             const addStationQuery = User.findOneAndUpdate({ username: req.params.username }, { $addToSet: { stations: station._id }}, {new: true})
             addStationQuery.exec((err, updatedUser) => {
                 if(err){

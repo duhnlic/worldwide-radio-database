@@ -33,12 +33,14 @@ module.exports.jsonAuth = (req, res, next)  => {
 
 module.exports.auth = (req, res, next) => {
     const authHeader = req.headers.authorization
+    console.log(authHeader)
     if(authHeader){
         const token = authHeader.split(' ')[1]
         jwt.verify(token, SECRET, (err, user) => {
             if(err){
                 res.sendStatus(403)
             } else {
+                console.log(user)
                 if(user.username === req.body.username){
                     res.locals.user = user.username
                     next()
