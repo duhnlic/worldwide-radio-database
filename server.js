@@ -21,10 +21,11 @@ mongoose.connect(process.env.MONGO_URI, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
     useCreateIndex: true,
-    useFindAndModify: false
+    useFindAndModify: false,
+    connectTimeoutMS: 3000
 },(err, res)=>{
     try{
-        console.log("connected")
+        console.log("Mongo is Connected")
     } catch(err) {
         console.log(err)
     }
