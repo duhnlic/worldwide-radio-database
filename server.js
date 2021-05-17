@@ -22,6 +22,12 @@ mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false
+},(err, res)=>{
+    try{
+        console.log("connected")
+    } catch(err) {
+        console.log(err)
+    }
 })
 mongoose.connection.once('connected', () => console.log('Bongo Bongo Bongo I\'m Connected to the Mongo'))
 
