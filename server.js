@@ -13,7 +13,6 @@ const PORT = process.env.PORT || 8000;
 //database and middleware
 app.use(express.json())
 app.use((req, res, next) => {
-    console.log(req.body)
     next()
 })
 app.use(cors())
@@ -73,7 +72,6 @@ app.post('/register', (req, res, next) =>{
     (req, res) =>{
     const passwordHash = hash(req.body.password)
     req.body.password = bcrypt.hashSync(passwordHash, bcrypt.genSaltSync(10))
-    console.log(req.body)
 
     User.create(req.body, (err, createdUser) =>{
         if(err){

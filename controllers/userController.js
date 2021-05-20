@@ -45,7 +45,6 @@ router.post('/addStation/:station/:username', auth, (req, res) =>{
                 msg: err.message
             })
         } else {
-            console.log(station)
             const addStationQuery = User.findOneAndUpdate({ username: req.params.username }, { $addToSet: { stations: station._id }}, {new: true})
             addStationQuery.exec((err, updatedUser) => {
                 if(err){
@@ -59,6 +58,20 @@ router.post('/addStation/:station/:username', auth, (req, res) =>{
                     })
                 }
             })
+        }
+    })
+})
+
+
+router.delete('/:username/:station', (req, res) => {
+    const deletedStation = User.findOneAndUpdate({username: req.params.username}, {$pull: { stations: req.params._id}});
+    deletedStation.exec((error, deletedStation) => {
+        if(error) {
+            res.status(400).json({
+                msg: error.message
+            })
+        } else {
+            res.status(200).json(deletedStation);
         }
     })
 })
