@@ -63,7 +63,7 @@ router.post('/addStation/:station/:username', auth, (req, res) =>{
 })
 
 
-router.delete('/:username/:station', (req, res) => {
+router.delete('/:username/:station', auth, (req, res) => {
     const deletedStation = User.findOneAndUpdate({username: req.params.username}, {$pull: { stations: req.params.station}});
     console.log(deletedStation)
     deletedStation.exec((error, deletedStation) => {
